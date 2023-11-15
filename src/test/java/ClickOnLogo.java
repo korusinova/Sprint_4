@@ -5,20 +5,32 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class ClickOnLogo {
     private WebDriver driver;
 
     @Before
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
+        switch (System.getProperty("browser")) {
+            case "firefox":
+                WebDriverManager.firefoxdriver().setup();
+                FirefoxOptions options = new FirefoxOptions();
+                options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+                driver = new FirefoxDriver(options);
+                break;
+            case "chrome":
+            default:
+                WebDriverManager.chromedriver().setup();
+                ChromeOptions chOptions = new ChromeOptions();
+                chOptions.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+                driver = new ChromeDriver(chOptions);
+        }
     }
 
     @Test
-    public void IfClickOnScooterLogoOpenMainPage(){
+    public void ifClickOnScooterLogoOpenMainPage(){
         PageObject.HomePageScooter objHomePage = new PageObject.HomePageScooter(driver);
         objHomePage.open();
         objHomePage.clickOnButtonCookies();
@@ -28,7 +40,7 @@ public class ClickOnLogo {
     }
 
     @Test
-    public void IfClickOnYandexLogoOpenYandexMainPage(){
+    public void ifClickOnYandexLogoOpenYandexMainPage(){
         PageObject.HomePageScooter objHomePage = new PageObject.HomePageScooter(driver);
         objHomePage.open();
         objHomePage.clickOnButtonCookies();

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class OrderPage_2 {
+public class PageAboutRent {
     private WebDriver driver;
 
     //Текст "Про аренду"
@@ -24,8 +24,8 @@ public class OrderPage_2 {
     private By checkBoxBlackPearl = By.xpath(".//input[@id='black']");
 
     //Кнопка "Заказать"
-    private By orderButtonInForm_2 = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
-    public OrderPage_2(WebDriver driver) {
+    private By orderButtonInFormAboutRent = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
+    public PageAboutRent(WebDriver driver) {
         this.driver = driver;
     }
     public void waitForLoadTextAboutRent() {
@@ -42,14 +42,14 @@ public class OrderPage_2 {
     public void chooseColorOfScooter() {
         driver.findElement(checkBoxBlackPearl).click();
     }
-    public void clickOnOrderButtonInForm_2() {
-        driver.findElement(orderButtonInForm_2).click();
+    public void clickOnOrderButtonInFormAboutRent() {
+        driver.findElement(orderButtonInFormAboutRent).click();
     }
-    public void fillOutOrderForm_2(String whenToBringScooter) {
+    public void fillOutOrderFormAboutRent(String whenToBringScooter) {
         enterWhenToBringScooter(whenToBringScooter);
         chooseRentalPeriod();
         chooseColorOfScooter();
-        clickOnOrderButtonInForm_2();
+        clickOnOrderButtonInFormAboutRent();
     }
 }
 

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class OrderPage_1 {
+public class PageWhoIsScooterFor {
     private final WebDriver driver;
 
     //Поле "Имя"
@@ -26,7 +26,7 @@ public class OrderPage_1 {
     //Кнопка "Далее"
     private final By nextButton = By.xpath(".//button[text()='Далее']");
 
-    public OrderPage_1(WebDriver driver) {
+    public PageWhoIsScooterFor(WebDriver driver) {
         this.driver = driver;
     }
     public void waitForLoadTextWhoIsScooterFor() {
@@ -53,7 +53,7 @@ public class OrderPage_1 {
     public void clickOnNextButton() {
         driver.findElement(nextButton).click();
     }
-    public void fillOutOrderForm_1(String name, String surname, String address, String metroStation, String telephone) {
+    public void fillOutOrderFormWhoIsScooterFor(String name, String surname, String address, String metroStation, String telephone) {
         enterName(name);
         enterSurname(surname);
         enterAddress(address);

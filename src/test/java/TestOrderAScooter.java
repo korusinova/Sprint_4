@@ -1,3 +1,5 @@
+import PageObject.PageWhoIsScooterFor;
+import PageObject.PageAboutRent;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -5,18 +7,29 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
-public class OrderAScooter {
+public class TestOrderAScooter {
     private WebDriver driver;
 
     @Before
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
+        switch (System.getProperty("browser")) {
+            case "firefox":
+                WebDriverManager.firefoxdriver().setup();
+                FirefoxOptions options = new FirefoxOptions();
+                options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+                driver = new FirefoxDriver(options);
+                break;
+            case "chrome":
+            default:
+                WebDriverManager.chromedriver().setup();
+                ChromeOptions ChOptions = new ChromeOptions();
+                ChOptions.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+                driver = new ChromeDriver(ChOptions);
+        }
     }
-
     @Test
     public void successfulScooterOrderWithOrderButtonInHeader() {
 
@@ -25,13 +38,13 @@ public class OrderAScooter {
         objHomePage.clickOnButtonCookies();
         objHomePage.clickOnOrderButtonInHeader();
 
-        PageObject.OrderPage_1 objOrderPage_1 = new PageObject.OrderPage_1(driver);
-        objOrderPage_1.waitForLoadTextWhoIsScooterFor();
-        objOrderPage_1.fillOutOrderForm_1("Лев", "Накаряков", "9-я Подлесная, 9", "Чистые пруды", "89199199191");
+        PageWhoIsScooterFor objPageWhoIsScooterFor = new PageWhoIsScooterFor(driver);
+        objPageWhoIsScooterFor.waitForLoadTextWhoIsScooterFor();
+        objPageWhoIsScooterFor.fillOutOrderFormWhoIsScooterFor("Лев", "Накаряков", "9-я Подлесная, 9", "Чистые пруды", "89199199191");
 
-        PageObject.OrderPage_2 objOrderPage_2 = new PageObject.OrderPage_2(driver);
-        objOrderPage_2.waitForLoadTextAboutRent();
-        objOrderPage_2.fillOutOrderForm_2("21.11.2023");
+        PageAboutRent objPageAboutRent = new PageAboutRent(driver);
+        objPageAboutRent.waitForLoadTextAboutRent();
+        objPageAboutRent.fillOutOrderFormAboutRent("21.11.2023");
 
         PageObject.PageWithDropdownWindowWantToPlaceOrder objPageWithDropdownWindow = new PageObject.PageWithDropdownWindowWantToPlaceOrder(driver);
         objPageWithDropdownWindow.waitForLoadTextWantToPlaceOrder();
@@ -41,7 +54,6 @@ public class OrderAScooter {
         objOrderProcessed.waitForLoadDropdownWindowOrderProcessed();
         objOrderProcessed.checkTextOrderProcessed();
     }
-
     @Test
     public void successfulScooterOrderWithOrderButtonInMiddle() {
 
@@ -51,13 +63,13 @@ public class OrderAScooter {
         objHomePage.scrollToOrderButtonInMiddle();
         objHomePage.clickOnOrderButtonInMiddle();
 
-        PageObject.OrderPage_1 objOrderPage_1 = new PageObject.OrderPage_1(driver);
-        objOrderPage_1.waitForLoadTextWhoIsScooterFor();
-        objOrderPage_1.fillOutOrderForm_1("Евгения", "Петрова", "Красная, 5", "Сокольники", "+79129129129");
+        PageWhoIsScooterFor objPageWhoIsScooterFor = new PageWhoIsScooterFor(driver);
+        objPageWhoIsScooterFor.waitForLoadTextWhoIsScooterFor();
+        objPageWhoIsScooterFor.fillOutOrderFormWhoIsScooterFor("Евгения", "Петрова", "Красная, 5", "Сокольники", "+79129129129");
 
-        PageObject.OrderPage_2 objOrderPage_2 = new PageObject.OrderPage_2(driver);
-        objOrderPage_2.waitForLoadTextAboutRent();
-        objOrderPage_2.fillOutOrderForm_2("01.12.2023");
+        PageAboutRent objPageAboutRent = new PageAboutRent(driver);
+        objPageAboutRent.waitForLoadTextAboutRent();
+        objPageAboutRent.fillOutOrderFormAboutRent("01.12.2023");
 
         PageObject.PageWithDropdownWindowWantToPlaceOrder objPageWithDropdownWindow = new PageObject.PageWithDropdownWindowWantToPlaceOrder(driver);
         objPageWithDropdownWindow.waitForLoadTextWantToPlaceOrder();
@@ -67,7 +79,6 @@ public class OrderAScooter {
         objOrderProcessed.waitForLoadDropdownWindowOrderProcessed();
         objOrderProcessed.checkTextOrderProcessed();
     }
-
     @After
     public void teardown() {
         driver.quit();
